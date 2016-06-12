@@ -30,6 +30,10 @@ def predict():
     proba = clf.predict_proba(df)[0, 1]
     time = reg.predict(df)[0]
 
+    # TODO: faked response
+    proba = len(title) + len(tags)
+    time = len(question)
+
     return render_template("predict.html",
                            response={"proba": proba,
                                      "time": time})
