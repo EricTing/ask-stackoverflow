@@ -1,14 +1,27 @@
-<html>
-    <form action="/predict">
-        Title:<br>
-        <textarea name="title" cols="120" rows="1" font-size='40px'></textarea>
-        <br>
-        Question:<br>
-        <textarea name="question" cols="120" rows="30"></textarea>
-        <br><br>
-        Tags:<br>
-        <textarea name="tags" cols="120" rows="1"></textarea>
-        <br>
-        <input type="submit">
-    </form>
-</html>
+{% extends "bootstrap/base.html" %}
+
+{% block title %}StackOverflow Prediction{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>When Your Stack Stops Overflow?</h1>
+    </div>
+</div>
+{% endblock %}
+
+
+<!-- <html>
+     <form action="/predict">
+     Title:<br>
+     <textarea name="title" cols="120" rows="1" font-size='40px'></textarea>
+     <br>
+     Question:<br>
+     <textarea name="question" cols="120" rows="30"></textarea>
+     <br><br>
+     Tags:<br>
+     <textarea name="tags" cols="120" rows="1"></textarea>
+     <br>
+     <input type="submit">
+     </form>
+     </html> -->
