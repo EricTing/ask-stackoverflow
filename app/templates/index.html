@@ -1,8 +1,14 @@
 <html>
-    <head>
-        <title>{{title}} - microblog</title>
-    </head>
-    <body>
-        <h1>Hello, {{user.nickname}}!</h1>
-    </body>
+    <form action="/predict">
+        Title:<br>
+        <textarea name="title" cols="120" rows="1" font-size='40px'></textarea>
+        <br>
+        Question:<br>
+        <textarea name="question" cols="120" rows="30"></textarea>
+        <br><br>
+        Tags:<br>
+        <textarea name="tags" cols="120" rows="1"></textarea>
+        <br>
+        <input type="submit">
+    </form>
 </html>
