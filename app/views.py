@@ -14,11 +14,6 @@ reg = joblib.load(
 rules = pickle.load(open(
     "/home/ubuntu/Workspace/WhenStackStopsOverFlow/tags.2016-02-01.profile.pkl"))
 
-df = pd.DataFrame({"title": [''],
-                    "tags": [''],
-                    "paragraphs": ['']})
-blank_proba = clf.predict_proba(df)[0, 1]
-
 @app.route('/')
 @app.route('/index')
 def index():
@@ -41,7 +36,7 @@ def predict():
     df = pd.DataFrame({"title": [title],
                        "tags": [tags],
                        "paragraphs": [question]})
-    proba = clf.predict_proba(df)[0, 1] - blank_proba
+    proba = clf.predict_proba(df)[0, 1]
     if proba < 0:
         proba = 0
     time = 10**reg.predict(df)[0]
@@ -55,12 +50,16 @@ def predict():
                                "tags":
                                [' '.join((tags, ' '.join(next_tag[0])))],
                                "paragraphs": [question]})
-        new_proba = clf.predict_proba(new_df)[0, 1] - blank_proba
+        new_proba = clf.predict_proba(new_df)[0, 1]
         if new_proba > proba:
             will_recommend = True
 
-    if will_recommend:
-        response = {"proba": proba, "time": time, "next_tag": ' '.join(next_tag[0])}
+    if title == '' and question == '' and tags == '':
+        response = {"proba": 0, "time": "never"}
+        return jsonify(response)
     else:
-        response = {"proba": proba, "time": time, "next_tag": None}
-    return jsonify(response)
+        if will_recommend:
+            response = {"proba": proba, "time": time, "next_tag": ' '.join(next_tag[0])}
+        else:
+            response = {"proba": proba, "time": time, "next_tag": None}
+        return jsonify(response)
