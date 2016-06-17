@@ -89,6 +89,9 @@
                     <h2 class="section-heading">We help you refine it</h2>
                     <hr class="light">
                     <p class="text-faded">Start by typing in your questions title, question body and tags.</p>
+                    <br/>
+                    <br/>
+                    <br/>
                     <a href="#start" class="page-scroll btn btn-default btn-xl sr-button" id="start">Get Started!</a>
                 </div>
             </div>
@@ -110,19 +113,28 @@
         <textarea class="form-control" rows="1" id="tags"></textarea>
     </div>
 
+    <div class="form-group">
+        <label for="tags" id='proba'>Probability: </label>
+    </div>
+    <div class="form-group">
+        <label for="tags" id='time'>Time to get an answer: </label>
+    </div>
+    <div class="form-group">
+        <label for="tags" id='reco_tag'></label>
+    </div>
 
-    <form action="/predict">
-        Title:<br>
-        <textarea name="title" cols="120" rows="1" font-size='40px'></textarea>
-        <br>
-        Question:<br>
-        <textarea name="question" cols="120" rows="30"></textarea>
-        <br><br>
-        Tags:<br>
-        <textarea name="tags" cols="120" rows="1"></textarea>
-        <br>
-        <input type="submit">
-    </form>
+    <!-- <form action="/predict">
+         Title:<br>
+         <textarea name="title" cols="120" rows="1" font-size='40px'></textarea>
+         <br>
+         Question:<br>
+         <textarea name="question" cols="120" rows="30"></textarea>
+         <br><br>
+         Tags:<br>
+         <textarea name="tags" cols="120" rows="1"></textarea>
+         <br>
+         <input type="submit">
+         </form> -->
 
     <!-- <section id="services">
          <div class="container">
@@ -317,7 +329,14 @@
              data: {title: title, body: body, tags: tags},
              method: "GET",
              success: function(data) {
-                 console.log(data);
+                 $("#proba").html("Probability: " + data['proba']);
+                 $("#time").html("Time to get an answer: " + data['time']);
+                 if (data["next_tag"] != null) {
+                     $("#reco_tag").html("Recommended tag: " + data['next_tag']);
+                 } else {
+                     console.log("else")
+                     $("#reco_tag").html("No more recommendation");
+                 }
              }
          })
      }, 5000)
