@@ -85,11 +85,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">We help you get answers quicker</h2>
+                    <h2 class="section-heading">Asking the right question is an art</h2>
+                    <h2 class="section-heading">We help you refine it</h2>
                     <hr class="light">
-                    <p class="text-faded">Start typing in your questions: title, question body and tags.</p>
-                    <p class="text-faded">We predict ...</p>
-                    <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Get Started!</a>
+                    <p class="text-faded">Start by typing in your questions title, question body and tags.</p>
+                    <a href="#start" class="page-scroll btn btn-default btn-xl sr-button" id="start">Get Started!</a>
                 </div>
             </div>
         </div>
@@ -294,30 +294,30 @@
     </section>
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 
     <!-- Plugin JavaScript -->
-    <script src="js/scrollreveal.min.js"></script>
-    <script src="js/jquery.easing.min.js"></script>
-    <script src="js/jquery.fittext.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="{{ url_for('static', filename='js/scrollreveal.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.easing.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.fittext.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.magnific-popup.min.js') }}"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="js/creative.js"></script>
+    <script src="{{ url_for('static', filename='js/creative.js') }}"></script>
     <script >
      var foo = function() {
-         var title = $("#title").html();
-         var body = $("#body").html();
-         var tags = $("#tags").html();
+         var title = $("#title").val();
+         var body = $("#body").val();
+         var tags = $("#tags").val();
          $.ajax({
              url: "/predict",
              data: {title: title, body: body, tags: tags},
              method: "POST",
              success: function(data) {
-                ; 
+                 console.log(data);
              }
          })
      }
