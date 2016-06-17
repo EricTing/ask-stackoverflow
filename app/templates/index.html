@@ -308,19 +308,19 @@
     <!-- Custom Theme JavaScript -->
     <script src="{{ url_for('static', filename='js/creative.js') }}"></script>
     <script >
-     var foo = function() {
+     window.setInterval(function() {
          var title = $("#title").val();
          var body = $("#body").val();
          var tags = $("#tags").val();
          $.ajax({
              url: "/predict",
              data: {title: title, body: body, tags: tags},
-             method: "POST",
+             method: "GET",
              success: function(data) {
                  console.log(data);
              }
          })
-     }
+     }, 5000)
     </script>
 
 </body>

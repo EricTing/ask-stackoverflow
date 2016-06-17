@@ -26,6 +26,13 @@ def predict():
     question = request.args.get('question')
     tags = request.args.get('tags')
 
+    if title is None:
+        title = ''
+    if question is None:
+        question = ''
+    if tags is None:
+        tags = ''
+
     df = pd.DataFrame({"title": [title],
                        "tags": [tags],
                        "paragraphs": [question]})
