@@ -1,4 +1,5 @@
 from flask import request
+from flask import jsonify
 from flask import render_template
 from app import app
 
@@ -45,7 +46,8 @@ def predict():
     will_recommend = False
     if next_tag is not None:
         new_df = pd.DataFrame({"title": [title],
-                               "tags": [' '.join((tags, ' '.join(next_tag[0])))],
+                               "tags":
+                               [' '.join((tags, ' '.join(next_tag[0])))],
                                "paragraphs": [question]})
         new_proba = clf.predict_proba(new_df)[0, 1]
         print(new_proba)
@@ -53,8 +55,7 @@ def predict():
             will_recommend = True
 
     if will_recommend:
-        print(next_tag)
-
-    return render_template("predict.html",
-                           response={"proba": str(proba),
-                                     "time": str(time)})
+        response = {"proba": proba, "time": time, "next_tag": ' '.join(next_tag[0])}
+    else:
+        response = {"proba": proba, "time": time, "next_tag": None}
+    return jsonify(response)
