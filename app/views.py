@@ -3,12 +3,12 @@ from flask import render_template
 from app import app
 
 import pandas as pd
-# from sklearn.externals import joblib
+from sklearn.externals import joblib
 
-# clf = joblib.load(
-#     "/home/ubuntu/Workspace/WhenStackStopsOverFlow/logistic_regression.2015-11-01.pkl")
-# reg = joblib.load(
-#     "/home/ubuntu/Workspace/WhenStackStopsOverFlow/linear_regression.2016-01-01.pkl")
+clf = joblib.load(
+    "/home/ubuntu/Workspace/WhenStackStopsOverFlow/nb_tags.2016-02-01.product.pkl")
+reg = joblib.load(
+    "/home/ubuntu/Workspace/WhenStackStopsOverFlow/combined_model_time.2016-02-01.pkl")
 
 
 @app.route('/')
@@ -28,12 +28,8 @@ def predict():
                        "paragraphs": [question],
                        "hasCodes": [1]})
     proba = clf.predict_proba(df)[0, 1]
-    time = reg.predict(df)[0]
-
-    # TODO: faked response
-    proba = len(title) + len(tags)
-    time = len(question)
+    time = 10 ** reg.predict(df)[0]
 
     return render_template("predict.html",
-                           response={"proba": proba,
-                                     "time": time})
+                           response={"proba": str(proba),
+                                     "time": str(time)})
