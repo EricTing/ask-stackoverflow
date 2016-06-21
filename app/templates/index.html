@@ -117,9 +117,6 @@
         <label for="tags" id='proba'>Probability: </label>
     </div>
     <div class="form-group">
-        <label for="tags" id='time'>Time to get an answer: </label>
-    </div>
-    <div class="form-group">
         <label for="tags" id='reco_tag'></label>
     </div>
 
@@ -329,14 +326,20 @@
              data: {title: title, body: body, tags: tags},
              method: "GET",
              success: function(data) {
-                 $("#proba").html("Probability: " + data['proba']);
-                 $("#time").html("Time to get an answer: " + data['time']);
-                 if (data["next_tag"] != null) {
-                     $("#reco_tag").html("Recommended tag: " + data['next_tag']);
-                 } else {
-                     console.log("else")
-                     $("#reco_tag").html("No more recommendation");
+                 var to_render = "Current probability: " + data['proba'].toFixed(3) + "<br/>"
+                 if (data.suggestions != null) {
+                    to_render += "Suggestions:" + "<br/>"
+                    for (var o in data.suggestions) {
+                        to_render += o;
+                        to_render += ": "
+                        to_render += data.suggestions[o].toFixed(3);
+                        to_render += "<br/>";
+                    }
                  }
+                 else {
+                     to_render += "No more suggestions" + "<br/>"
+                 }
+                 $("#proba").html(to_render);
              }
          })
      }, 5000)

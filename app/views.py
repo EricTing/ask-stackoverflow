@@ -14,6 +14,7 @@ reg = joblib.load(
 rules = pickle.load(open(
     "/home/ubuntu/Workspace/WhenStackStopsOverFlow/tags.2016-02-01.profile.pkl"))
 
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -23,43 +24,43 @@ def index():
 @app.route('/predict')
 def predict():
     title = request.args.get('title')
-    question = request.args.get('question')
+    paragraphs = request.args.get('body')
     tags = request.args.get('tags')
 
-    if title is None:
-        title = ''
-    if question is None:
-        question = ''
-    if tags is None:
-        tags = ''
-
-    df = pd.DataFrame({"title": [title],
-                       "tags": [tags],
-                       "paragraphs": [question]})
-    proba = clf.predict_proba(df)[0, 1]
-    if proba < 0:
-        proba = 0
-    time = 10**reg.predict(df)[0]
-
-    current_tags = tags.split()
-    next_tag = rules.get(frozenset(current_tags))
-
-    will_recommend = False
-    if next_tag is not None:
-        new_df = pd.DataFrame({"title": [title],
-                               "tags":
-                               [' '.join((tags, ' '.join(next_tag[0])))],
-                               "paragraphs": [question]})
-        new_proba = clf.predict_proba(new_df)[0, 1]
-        if new_proba > proba:
-            will_recommend = True
-
-    if title == '' and question == '' and tags == '':
-        response = {"proba": 0, "time": "never"}
+    response = {"proba": 0, "suggestions": None}
+    if any([title == '', paragraphs == '', tags == '']):
+        print("no prediction")
         return jsonify(response)
     else:
-        if will_recommend:
-            response = {"proba": proba, "time": time, "next_tag": ' '.join(next_tag[0])}
+        print("prediction")
+        # current probability
+        df = pd.DataFrame({"title": [title],
+                           "tags": [tags],
+                           "paragraphs": [paragraphs]})
+
+        proba = clf.predict_proba(df)[0, 1]
+        print("proba:", proba)
+        response['proba'] = proba
+
+        # suggestions
+        current_tags = frozenset(tags.split())
+        next_tags = [s for s in rules
+                     if current_tags.issubset(s) and s != current_tags]
+
+        if len(next_tags) > 0:
+            next_df = pd.DataFrame({"tags": [' '.join(s) for s in next_tags]})
+            next_df['title'] = title
+            next_df['paragraphs'] = paragraphs
+            next_proba = clf.predict_proba(next_df)[:, 1]
+            next_df['next_proba'] = next_proba
+            next_df = next_df[next_df['next_proba'] > proba]
+            next_df = next_df.sort_values('next_proba', ascending=False)
+            suggestions = dict(zip(next_df.head()['tags'], next_df.head()[
+                'next_proba']))
+            response["suggestions"] = suggestions
         else:
-            response = {"proba": proba, "time": time, "next_tag": None}
+            pass
+
+        print(response)
+
         return jsonify(response)
