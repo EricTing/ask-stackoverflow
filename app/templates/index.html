@@ -74,7 +74,7 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
-                <h1>Questioning</h1>
+                <h1>Ask</h1>
                 <h1>Stack Overflow</h1>
                 <hr>
                 <a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
@@ -327,9 +327,9 @@
              data: {title: title, body: body, tags: tags},
              method: "GET",
              success: function(data) {
-                 var to_render = "Current probability: " + data['proba'].toFixed(3) + "<br/>"
+                 var to_render = "Current probability of getting an answer within 24 hours: " + data['proba'].toFixed(3) + "<br/><br/>"
                  if (data.suggestions != null) {
-                    to_render += "Suggestions:" + "<br/>"
+                    to_render += "Suggested tags:" + "<br/>"
                     for (var o in data.suggestions) {
                         to_render += o;
                         to_render += ": "
