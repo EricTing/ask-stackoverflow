@@ -99,42 +99,42 @@
         </div>
     </section>
 
-    <table style="with:100%">
-        <tr>
-            <td>
-                <div class="form-group">
-                    <h2 align="left">Input question title into the box below</h1>
-                        <textarea rows="1" cols="70" id="title">
-How to evaluate empty JSON property/element in Python
-                        </textarea>
-                </div>
+    <!-- <table style="with:100%">
+         <tr>
+         <td>
+         <div class="form-group">
+         <h2 align="left">Input question title into the box below</h1>
+         <textarea rows="1" cols="70" id="title">
+         How to evaluate empty JSON property/element in Python
+         </textarea>
+         </div>
 
-                <div class="form-group">
-                    <h2 align="left">Input question body into the box below</h1>
-                        <textarea rows="8" cols="70" id="body">
-I am attempting to evaluate some JSON that I am receiving from a RESTful API, but I am having trouble accessing the data in Python because it appears that there is an empty property name.
-                        </textarea>
-                </div>
+         <div class="form-group">
+         <h2 align="left">Input question body into the box below</h1>
+         <textarea rows="8" cols="70" id="body">
+         I am attempting to evaluate some JSON that I am receiving from a RESTful API, but I am having trouble accessing the data in Python because it appears that there is an empty property name.
+         </textarea>
+         </div>
 
-                <div class="form-group">
-                    <h2 align="left">Input question tags into the box below</h1>
-                        <textarea rows="1" cols="70" id="tags">
-python
-                        </textarea>
-                </div>
-            </td>
+         <div class="form-group">
+         <h2 align="left">Input question tags into the box below</h1>
+         <textarea rows="1" cols="70" id="tags">
+         python
+         </textarea>
+         </div>
+         </td>
 
-            <td>
-                <div class="form-group">
-                    <label for="tags" id='proba'>Probability: </label>
-                </div>
-                <div class="form-group">
-                    <label for="tags" id='reco_tag'></label>
-                </div>
-            </td>
-        </tr>
-    </table>
-
+         <td>
+         <div class="form-group">
+         <label for="tags" id='proba'>Probability: </label>
+         </div>
+         <div class="form-group">
+         <label for="tags" id='reco_tag'></label>
+         </div>
+         </td>
+         </tr>
+         </table>
+       -->
     <!-- <form action="/predict">
          Title:<br>
          <textarea name="title" cols="120" rows="1" font-size='40px'></textarea>
@@ -148,49 +148,64 @@ python
          <input type="submit">
          </form> -->
 
-    <!-- <section id="services">
-         <div class="container">
-         <div class="row">
-         <div class="col-lg-12 text-center">
-         <h2 class="section-heading">At Your Service</h2>
-         <hr class="primary">
-         </div>
-         </div>
-         </div>
-         <div class="container">
-         <div class="row">
-         <div class="col-lg-3 col-md-6 text-center">
-         <div class="service-box">
-         <i class="fa fa-4x fa-diamond text-primary sr-icons"></i>
-         <h3>Sturdy Templates</h3>
-         <p class="text-muted">Our templates are updated regularly so they don't break.</p>
-         </div>
-         </div>
-         <div class="col-lg-3 col-md-6 text-center">
-         <div class="service-box">
-         <i class="fa fa-4x fa-paper-plane text-primary sr-icons"></i>
-         <h3>Ready to Ship</h3>
-         <p class="text-muted">You can use this theme as is, or you can make changes!</p>
-         </div>
-         </div>
-         <div class="col-lg-3 col-md-6 text-center">
-         <div class="service-box">
-         <i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>
-         <h3>Up to Date</h3>
-         <p class="text-muted">We update dependencies to keep things fresh.</p>
-         </div>
-         </div>
-         <div class="col-lg-3 col-md-6 text-center">
-         <div class="service-box">
-         <i class="fa fa-4x fa-heart text-primary sr-icons"></i>
-         <h3>Made with Love</h3>
-         <p class="text-muted">You have to make your websites with love these days!</p>
-         </div>
-         </div>
-         </div>
-         </div>
-         </section>
-       -->
+    <section id="services">
+        <!-- <div class="container">
+             <div class="row">
+             <div class="col-lg-12 text-center">
+             <h2 class="section-heading">At Your Service</h2>
+             <hr class="primary">
+             </div>
+             </div>
+             </div> -->
+        <div class="container">
+            <div class="row">
+                <!-- <div class="col-lg-3 col-md-6 text-center">
+                     <div class="service-box">
+                     <i class="fa fa-4x fa-diamond text-primary sr-icons"></i>
+                     <h3>Sturdy Templates</h3>
+                     <p class="text-muted">Our templates are updated regularly so they don't break.</p>
+                     </div>
+                     </div> -->
+                <div class="col-lg-9 col-md-9 text-center">
+                    <div class="service-box" style="float: left">
+                        <i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>
+                        <h2>Title</h2>
+                        <textarea rows="1" cols="70" id="title">How to evaluate empty JSON property/element in Python
+                        </textarea>
+
+                    <h2>Question body</h1>
+                        <textarea rows="8" cols="70" id="body">I am attempting to evaluate some JSON that I am receiving from a RESTful API, but I am having trouble accessing the data in Python because it appears that there is an empty property name.
+                        </textarea>
+
+                    <h2>Tags</h1>
+                        <textarea rows="1" cols="70" id="tags">python
+                        </textarea>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-paper-plane text-primary sr-icons"></i>
+                        <h2>Predictions</h2>
+                        <div class="form-group">
+                            <label for="tags" id='proba'>Probability: </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="tags" id='reco_tag'></label>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-lg-3 col-md-6 text-center">
+                     <div class="service-box">
+                     <i class="fa fa-4x fa-heart text-primary sr-icons"></i>
+                     <h3>Made with Love</h3>
+                     <p class="text-muted">You have to make your websites with love these days!</p>
+                     </div>
+                     </div> -->
+            </div>
+        </div>
+    </section>
+
     <!-- <section class="no-padding" id="portfolio">
          <div class="container-fluid">
          <div class="row no-gutter popup-gallery">
