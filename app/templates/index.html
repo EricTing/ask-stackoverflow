@@ -166,7 +166,7 @@
                      <p class="text-muted">Our templates are updated regularly so they don't break.</p>
                      </div>
                      </div> -->
-                <div class="col-lg-9 col-md-9 text-center">
+                <div class="col-lg-8 col-md-8 text-center">
                     <div class="service-box" style="float: left">
                         <i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>
                         <h2>Title</h2>
@@ -183,7 +183,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-3 text-center">
+                <div class="col-lg-4 col-md-4 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-paper-plane text-primary sr-icons"></i>
                         <h2>Predictions</h2>
@@ -192,6 +192,15 @@
                         </div>
                         <div class="form-group">
                             <label for="tags" id='reco_tag'></label>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <th>Suggested tags</th>
+                                    <th>Potential probability</th>
+                                </thead>
+                                <tbody id="pred_table">
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -358,16 +367,15 @@
              success: function(data) {
                  var to_render = "Current probability of getting an answer within 24 hours: " + data['proba'].toFixed(3) + "<br/><br/>"
                  if (data.suggestions != null) {
-                    to_render += "Suggested tags:" + "<br/>"
+                    to_render += "Suggested tags:";
+                    $("#pred_table").empty();
                     for (var o in data.suggestions) {
-                        to_render += o;
-                        to_render += ": "
-                        to_render += data.suggestions[o].toFixed(3);
-                        to_render += "<br/>";
+                        $("#pred_table").append("<tr><td>" + o + "</td>" + "<td>" + data.suggestions[o].toFixed(3) + "</td>" + "</tr>");
                     }
                  }
                  else {
-                     to_render += "No more suggestions" + "<br/>"
+                     to_render += "No more suggestions" + "<br/>";
+                     $("#pred_table").empty();
                  }
                  $("#proba").html(to_render);
              }
