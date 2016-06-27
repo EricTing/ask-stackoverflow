@@ -21,11 +21,22 @@ def index():
     return render_template("index.html")
 
 
+def norm(proba):
+    if proba < 0.47:
+        return 0
+    else:
+        return proba - 0.47
+
+
 @app.route('/predict')
 def predict():
     title = request.args.get('title')
     paragraphs = request.args.get('body')
     tags = request.args.get('tags')
+
+    print(title)
+    print(paragraphs)
+    print(tags)
 
     response = {"proba": 0, "suggestions": None}
     if any([title == '', paragraphs == '', tags == '']):
@@ -40,6 +51,7 @@ def predict():
 
         proba = clf.predict_proba(df)[0, 1]
         print("proba:", proba)
+        proba = norm(proba)
         response['proba'] = proba
 
         # suggestions
@@ -53,6 +65,7 @@ def predict():
             next_df['paragraphs'] = paragraphs
             next_proba = clf.predict_proba(next_df)[:, 1]
             next_df['next_proba'] = next_proba
+            next_df['next_proba'] = next_df['next_proba'].apply(norm)
             next_df = next_df[next_df['next_proba'] > proba]
             next_df = next_df.sort_values('next_proba', ascending=False)
             suggestions = dict(zip(next_df.head()['tags'], next_df.head()[
